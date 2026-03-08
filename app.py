@@ -12,7 +12,9 @@ if 'df_experiment_results' not in st.session_state:
 
 st.header('Lanzar una moneda')
 
-chart = st.line_chart([0.5])
+chart_placeholder = st.empty()
+data = [0.5]
+chart_placeholder.line_chart(data)
 
 def toss_coin(n):
 
@@ -22,13 +24,19 @@ def toss_coin(n):
     outcome_no = 0
     outcome_1_count = 0
 
+    data = [0.5]
+
     for r in trial_outcomes:
-        outcome_no +=1
+        outcome_no += 1
         if r == 1:
             outcome_1_count += 1
+
         mean = outcome_1_count / outcome_no
-        chart.add_rows([mean])
-        time.sleep(0.05)
+        data.append(mean)
+
+        chart_placeholder.line_chart(data)
+
+        time.sleep(0.01)
 
     return mean
 
